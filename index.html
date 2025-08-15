@@ -56,6 +56,11 @@
             filter: blur(0px);
             pointer-events: auto; /* Enable interaction on hover */
         }
+
+        /* Remove the text decoration on links inside project cards for a cleaner look */
+        .project-card a {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-200">
@@ -66,7 +71,7 @@
             <h1 class="text-6xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 mb-2">
                 HTMLab
             </h1>
-            <p class="text-lg md:text-xl text-gray-400">
+            <p class="text-xl md:text-2xl text-gray-400 tracking-widest mb-8">
                 by Visnudeva
             </p>
             <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mt-4">
@@ -78,68 +83,108 @@
         <section class="grid grid-cols-1 gap-12">
 
             <!-- Project Card: Laniakea -->
-            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6">
-                <h2 class="text-3xl font-bold mb-2">Laniakea</h2>
+            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6 relative">
+                <!-- Project title with gradient and link -->
+                <a href="https://github.com/visnudeva/Laniakea" target="_blank">
+                    <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 mb-2">
+                        Laniakea
+                    </h2>
+                </a>
                 <p class="text-gray-400 mb-4 h-16 overflow-hidden">
                     A beautiful, interactive 3D particle simulation inspired by the Laniakea Supercluster.
                 </p>
                 <!-- Iframe container with responsive aspect ratio -->
                 <div class="relative w-full overflow-hidden rounded-xl h-96 bg-gray-800">
                     <iframe 
+                        id="laniakea-iframe"
                         class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
                         src="https://visnudeva.github.io/Laniakea/" 
                         frameborder="0" 
                         allowfullscreen>
                     </iframe>
                 </div>
+                <!-- Link to live page -->
+                <a href="https://visnudeva.github.io/Laniakea/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
             </div>
 
             <!-- Project Card: Ambios -->
-            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6">
-                <h2 class="text-3xl font-bold mb-2">Ambios</h2>
+            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6 relative">
+                <!-- Project title with gradient and link -->
+                <a href="https://github.com/visnudeva/Ambios" target="_blank">
+                    <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 mb-2">
+                        Ambios
+                    </h2>
+                </a>
                 <p class="text-gray-400 mb-4 h-16 overflow-hidden">
                     An ambient soundscape generator that creates immersive audio based on user input.
                 </p>
                 <div class="relative w-full overflow-hidden rounded-xl h-96 bg-gray-800">
                     <iframe 
+                        id="ambios-iframe"
                         class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
                         src="https://visnudeva.github.io/Ambios/" 
                         frameborder="0" 
                         allowfullscreen>
                     </iframe>
                 </div>
+                <!-- Link to live page -->
+                <a href="https://visnudeva.github.io/Ambios/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
             </div>
 
             <!-- Project Card: Holi -->
-            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6">
-                <h2 class="text-3xl font-bold mb-2">Holi</h2>
+            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6 relative">
+                <!-- Project title with gradient and link -->
+                <a href="https://github.com/visnudeva/holi" target="_blank">
+                    <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 mb-2">
+                        Holi
+                    </h2>
+                </a>
                 <p class="text-gray-400 mb-4 h-16 overflow-hidden">
                     An interactive particle simulation inspired by the festival of colors, Holi.
                 </p>
                 <div class="relative w-full overflow-hidden rounded-xl h-96 bg-gray-800">
                     <iframe 
+                        id="holi-iframe"
                         class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
                         src="https://visnudeva.github.io/holi/" 
                         frameborder="0" 
                         allowfullscreen>
                     </iframe>
                 </div>
+                <!-- Link to live page -->
+                <a href="https://visnudeva.github.io/holi/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
             </div>
 
             <!-- Project Card: Monomyth Oracle -->
-            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6">
-                <h2 class="text-3xl font-bold mb-2">Monomyth Oracle</h2>
+            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6 relative">
+                <!-- Project title with gradient and link -->
+                <a href="https://github.com/visnudeva/Monomyth-Oracle" target="_blank">
+                    <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 mb-2">
+                        Monomyth Oracle
+                    </h2>
+                </a>
                 <p class="text-gray-400 mb-4 h-16 overflow-hidden">
                     An interactive journey into the hero's journey, providing guidance and insights.
                 </p>
                 <div class="relative w-full overflow-hidden rounded-xl h-96 bg-gray-800">
                     <iframe 
+                        id="monomyth-iframe"
                         class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
                         src="https://visnudeva.github.io/Monomyth-Oracle/" 
                         frameborder="0" 
                         allowfullscreen>
                     </iframe>
                 </div>
+                <!-- Link to live page -->
+                <a href="https://visnudeva.github.io/Monomyth-Oracle/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
             </div>
         </section>
 
