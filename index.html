@@ -30,7 +30,7 @@
             /* Enable 3D transform acceleration for smooth animations */
             transform-style: preserve-3d;
             will-change: transform, box-shadow;
-            transition-property: transform, box-shadow;
+            transition-property: transform; /* Only transform, as the box-shadow is now dynamic */
             transition-duration: 300ms;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -48,7 +48,7 @@
         /* Hover states for the project card and iframe */
         .project-card:hover {
             transform: scale(1.02);
-            box-shadow: 0 25px 50px -12px rgba(239, 68, 68, 0.4); /* Tailwind's red-500 */
+            /* The box-shadow will now be applied dynamically by JavaScript on hover */
         }
 
         .project-card:hover .project-iframe {
@@ -100,7 +100,7 @@
         <section class="grid grid-cols-1 gap-12">
 
             <!-- Project Card: Laniakea -->
-            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6 relative">
+            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden p-6 relative">
                 <!-- Project title with gradient and link -->
                 <a href="https://github.com/visnudeva/Laniakea" target="_blank">
                     <h2 class="text-3xl font-bold color-cycle-text mb-2">
@@ -127,7 +127,7 @@
             </div>
 
             <!-- Project Card: Ambios -->
-            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6 relative">
+            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden p-6 relative">
                 <!-- Project title with gradient and link -->
                 <a href="https://github.com/visnudeva/Ambios" target="_blank">
                     <h2 class="text-3xl font-bold color-cycle-text mb-2">
@@ -147,13 +147,13 @@
                     </iframe>
                 </div>
                 <!-- Link to live page -->
-                <a href="https://visnudeva.github.io/Ambios/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
+                <a href="https://github.com/visnudeva/Ambios/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
                     <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
             </div>
 
             <!-- Project Card: Holi -->
-            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6 relative">
+            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden p-6 relative">
                 <!-- Project title with gradient and link -->
                 <a href="https://github.com/visnudeva/holi" target="_blank">
                     <h2 class="text-3xl font-bold color-cycle-text mb-2">
@@ -173,13 +173,13 @@
                     </iframe>
                 </div>
                 <!-- Link to live page -->
-                <a href="https://visnudeva.github.io/holi/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
+                <a href="https://github.com/visnudeva/holi/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
                     <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
             </div>
 
             <!-- Project Card: Monomyth Oracle -->
-            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6 relative">
+            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden p-6 relative">
                 <!-- Project title with gradient and link -->
                 <a href="https://github.com/visnudeva/Monomyth-Oracle" target="_blank">
                     <h2 class="text-3xl font-bold color-cycle-text mb-2">
@@ -199,12 +199,56 @@
                     </iframe>
                 </div>
                 <!-- Link to live page -->
-                <a href="https://visnudeva.github.io/Monomyth-Oracle/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
+                <a href="https://github.com/visnudeva/Monomyth-Oracle/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
                     <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
             </div>
         </section>
 
     </main>
+
+    <script>
+        // Get all elements with the class 'project-card'
+        const projectCards = document.querySelectorAll('.project-card');
+
+        /**
+         * Generates a random RGBA color string.
+         * The alpha value is fixed at 0.4 to ensure the shadow is semi-transparent.
+         * @returns {string} The formatted RGBA color string.
+         */
+        function getRandomRgbaColor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgba(${r}, ${g}, ${b}, 0.4)`;
+        }
+
+        /**
+         * Updates the box-shadow of a project card on hover.
+         * @param {Event} event The mouse event.
+         */
+        function onMouseEnter(event) {
+            const card = event.currentTarget;
+            const randomColor = getRandomRgbaColor();
+            // Apply a box-shadow with a random color
+            card.style.boxShadow = `0 25px 50px -12px ${randomColor}`;
+        }
+
+        /**
+         * Removes the box-shadow from a project card when the mouse leaves.
+         * @param {Event} event The mouse event.
+         */
+        function onMouseLeave(event) {
+            const card = event.currentTarget;
+            // Remove the box-shadow to reset the appearance
+            card.style.boxShadow = 'none';
+        }
+
+        // Add event listeners to each project card
+        projectCards.forEach(card => {
+            card.addEventListener('mouseenter', onMouseEnter);
+            card.addEventListener('mouseleave', onMouseLeave);
+        });
+    </script>
 </body>
 </html>
