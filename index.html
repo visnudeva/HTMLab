@@ -61,6 +61,21 @@
         .project-card a {
             text-decoration: none;
         }
+        
+        /* Custom CSS for the color cycling title effect */
+        .color-cycle-text {
+            background: linear-gradient(to right, #ef4444, #8b5cf6, #3b82f6, #8b5cf6, #ef4444, #8b5cf6, #3b82f6, #8b5cf6, #ef4444);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: color-cycle 15s linear infinite;
+        }
+
+        @keyframes color-cycle {
+            to {
+                background-position: 100% center;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-200">
@@ -68,15 +83,17 @@
     <main class="container mx-auto px-4 py-16">
         <!-- Main title and description section -->
         <header class="text-center mb-16">
-            <h1 class="text-6xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 mb-2">
+            <h1 class="text-6xl md:text-7xl font-bold color-cycle-text">
                 HTMLab
             </h1>
             <p class="text-xl md:text-2xl text-gray-400 tracking-widest mb-8">
                 by Visnudeva
             </p>
-            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mt-4">
-                A showcase of my web development projects. Each of these is a live, interactive experience.
-            </p>
+            <div class="overflow-x-auto">
+                <p class="text-lg md:text-xl text-gray-400 mx-auto mt-4 whitespace-nowrap">
+                    A live, interactive showcase experience of my web development projects.
+                </p>
+            </div>
         </header>
 
         <!-- Projects grid section -->
@@ -86,7 +103,7 @@
             <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6 relative">
                 <!-- Project title with gradient and link -->
                 <a href="https://github.com/visnudeva/Laniakea" target="_blank">
-                    <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 mb-2">
+                    <h2 class="text-3xl font-bold color-cycle-text mb-2">
                         Laniakea
                     </h2>
                 </a>
@@ -113,7 +130,7 @@
             <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6 relative">
                 <!-- Project title with gradient and link -->
                 <a href="https://github.com/visnudeva/Ambios" target="_blank">
-                    <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 mb-2">
+                    <h2 class="text-3xl font-bold color-cycle-text mb-2">
                         Ambios
                     </h2>
                 </a>
@@ -139,7 +156,7 @@
             <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6 relative">
                 <!-- Project title with gradient and link -->
                 <a href="https://github.com/visnudeva/holi" target="_blank">
-                    <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 mb-2">
+                    <h2 class="text-3xl font-bold color-cycle-text mb-2">
                         Holi
                     </h2>
                 </a>
@@ -165,7 +182,7 @@
             <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6 relative">
                 <!-- Project title with gradient and link -->
                 <a href="https://github.com/visnudeva/Monomyth-Oracle" target="_blank">
-                    <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 mb-2">
+                    <h2 class="text-3xl font-bold color-cycle-text mb-2">
                         Monomyth Oracle
                     </h2>
                 </a>
