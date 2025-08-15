@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMLab by Visnudeva</title>
+    <!-- Use the Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Apply the Inter font and dark theme globally */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Hide scrollbars for a cleaner look on the iframes, but allow content to scroll if needed */
+        .project-iframe::-webkit-scrollbar {
+            display: none;
+        }
+        .project-iframe {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+
+        /* Base styles for the project card and iframe */
+        .project-card {
+            /* Enable 3D transform acceleration for smooth animations */
+            transform-style: preserve-3d;
+            will-change: transform, box-shadow;
+            transition-property: transform, box-shadow;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-iframe {
+            will-change: transform, filter;
+            transition-property: transform, filter;
+            transition-duration: 500ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.9);
+            filter: blur(16px);
+            pointer-events: none; /* Disable interaction until hover */
+        }
+
+        /* Hover states for the project card and iframe */
+        .project-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(239, 68, 68, 0.4); /* Tailwind's red-500 */
+        }
+
+        .project-card:hover .project-iframe {
+            transform: scale(1);
+            filter: blur(0px);
+            pointer-events: auto; /* Enable interaction on hover */
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-200">
+
+    <main class="container mx-auto px-4 py-16">
+        <!-- Main title and description section -->
+        <header class="text-center mb-16">
+            <h1 class="text-6xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 mb-2">
+                HTMLab
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400">
+                by Visnudeva
+            </p>
+            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mt-4">
+                A showcase of my web development projects. Each of these is a live, interactive experience.
+            </p>
+        </header>
+
+        <!-- Projects grid section -->
+        <section class="grid grid-cols-1 gap-12">
+
+            <!-- Project Card: Laniakea -->
+            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6">
+                <h2 class="text-3xl font-bold mb-2">Laniakea</h2>
+                <p class="text-gray-400 mb-4 h-16 overflow-hidden">
+                    A beautiful, interactive 3D particle simulation inspired by the Laniakea Supercluster.
+                </p>
+                <!-- Iframe container with responsive aspect ratio -->
+                <div class="relative w-full overflow-hidden rounded-xl h-96 bg-gray-800">
+                    <iframe 
+                        class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
+                        src="https://visnudeva.github.io/Laniakea/" 
+                        frameborder="0" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Project Card: Ambios -->
+            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6">
+                <h2 class="text-3xl font-bold mb-2">Ambios</h2>
+                <p class="text-gray-400 mb-4 h-16 overflow-hidden">
+                    An ambient soundscape generator that creates immersive audio based on user input.
+                </p>
+                <div class="relative w-full overflow-hidden rounded-xl h-96 bg-gray-800">
+                    <iframe 
+                        class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
+                        src="https://visnudeva.github.io/Ambios/" 
+                        frameborder="0" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Project Card: Holi -->
+            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6">
+                <h2 class="text-3xl font-bold mb-2">Holi</h2>
+                <p class="text-gray-400 mb-4 h-16 overflow-hidden">
+                    An interactive particle simulation inspired by the festival of colors, Holi.
+                </p>
+                <div class="relative w-full overflow-hidden rounded-xl h-96 bg-gray-800">
+                    <iframe 
+                        class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
+                        src="https://visnudeva.github.io/holi/" 
+                        frameborder="0" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Project Card: Monomyth Oracle -->
+            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden shadow-2xl p-6">
+                <h2 class="text-3xl font-bold mb-2">Monomyth Oracle</h2>
+                <p class="text-gray-400 mb-4 h-16 overflow-hidden">
+                    An interactive journey into the hero's journey, providing guidance and insights.
+                </p>
+                <div class="relative w-full overflow-hidden rounded-xl h-96 bg-gray-800">
+                    <iframe 
+                        class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
+                        src="https://visnudeva.github.io/Monomyth-Oracle/" 
+                        frameborder="0" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>
