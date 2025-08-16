@@ -75,31 +75,63 @@
                 background-position: 100% center;
             }
         }
+
+        /* Styles for the dynamic header on scroll */
+        .header {
+            transition: all 0.5s ease-in-out;
+        }
+
+        .header.scrolled {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .header.scrolled .header-title-container {
+            flex-grow: 1;
+            text-align: left;
+        }
+        .header.scrolled .header-title {
+            font-size: 2rem; /* text-3xl */
+            line-height: 2.25rem;
+        }
+        @media (min-width: 768px) {
+            .header.scrolled .header-title {
+                font-size: 2.25rem; /* md:text-4xl */
+                line-height: 2.5rem;
+            }
+        }
+
+        .header.scrolled .header-subtitle {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-200">
 
-    <main class="container mx-auto px-4 py-16">
-        <!-- Main title and description section -->
-        <header class="text-center mb-16">
-            <a href="https://github.com/visnudeva/HTMLab" target="_blank" class="block mb-2">
-                <h1 class="text-6xl md:text-7xl font-bold color-cycle-text">
-                    HTMLab
-                </h1>
-            </a>
-            <a href="https://github.com/visnudeva" target="_blank" class="block">
-                <p class="text-xl md:text-2xl text-gray-400 tracking-widest mb-8">
-                    by Visnudeva
-                </p>
-            </a>
-            <!-- Removed whitespace-nowrap to allow wrapping on small screens -->
-            <div>
-                <p class="text-lg md:text-xl text-gray-400 mx-auto mt-4">
-                    A live, interactive showcase experience of my web development projects.
-                </p>
+    <!-- Dynamic blurred glass header -->
+    <header id="dynamic-header" class="header fixed top-0 left-0 w-full z-50 bg-gray-950/60 backdrop-blur-md px-4 py-8">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between transition-all duration-500">
+            <!-- Title and Subtitle -->
+            <div class="header-title-container text-center md:text-left transition-all duration-500">
+                <a href="https://github.com/visnudeva/HTMLab" target="_blank" class="block mb-2">
+                    <h1 class="header-title text-4xl md:text-5xl font-bold color-cycle-text transition-all duration-500">
+                        HTMLab
+                    </h1>
+                </a>
+                <a href="https://github.com/visnudeva" target="_blank" class="block">
+                    <p class="header-subtitle text-xl md:text-2xl text-gray-400 tracking-widest transition-all duration-500">
+                        by Visnudeva
+                    </p>
+                </a>
             </div>
-        </header>
+            <!-- Catchphrase -->
+            <p class="header-catchphrase text-lg md:text-xl text-gray-400 mx-auto mt-4 md:mt-0 md:text-right">
+                A live, interactive showcase experience of my web development projects.
+            </p>
+        </div>
+    </header>
 
+    <main class="container mx-auto px-4 py-16 mt-64 md:mt-48">
         <!-- Projects grid section -->
         <section class="grid grid-cols-1 md:grid-cols-2 gap-12">
 
@@ -269,6 +301,18 @@
         // Add event listeners for scroll and load events
         window.addEventListener('scroll', checkCardsInView);
         window.addEventListener('load', checkCardsInView); // Check on page load
+
+        // --- JavaScript for the dynamic header ---
+        const header = document.getElementById('dynamic-header');
+        const scrollThreshold = 50;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > scrollThreshold) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
     </script>
 </body>
 </html>
