@@ -5,5 +5,5 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/visnudeva/HTMLab/blob/main/Screenshot%20from%202025-08-17%2015-41-03.png?raw=true" width="1000">
+  <img src="https://github.com/visnudeva/HTMLab/blob/main/Screenshot%20from%202025-08-17%2017-24-41.png?raw=true" width="1000">
 </p>
