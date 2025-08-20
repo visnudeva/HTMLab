@@ -47,11 +47,14 @@
         
         /* The active state will now be managed by JavaScript on scroll */
         .project-card.active {
-            transform: scale(1.02);
+            /* Now the entire card is scaled up for a more dramatic effect */
+            transform: scale(1.2); 
+            box-shadow: 0 25px 50px -12px var(--shadow-color);
         }
 
         .project-card.active .project-iframe {
-            transform: scale(1);
+            /* The iframe itself no longer has a zoom transform, as it inherits from the parent */
+            transform: scale(1); 
             filter: blur(0px);
             pointer-events: auto; /* Enable interaction when active */
         }
@@ -129,12 +132,12 @@
                 A live, interactive showcase experience of my web development projects.
             </p>
         </div>
+        </div>
     </header>
 
     <main class="container mx-auto px-4 py-16 mt-64 md:mt-48">
         <!-- Projects grid section -->
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-12">
-
+        <section class="grid grid-cols-1 gap-48 md:gap-60">
             <!-- Project Card: Laniakea -->
             <div class="project-card bg-gray-900 rounded-3xl overflow-hidden p-6 relative">
                 <!-- Project title with gradient and link -->
@@ -147,7 +150,7 @@
                     A minimalist wallpaper generator inspired by the Laniakea Supercluster.
                 </p>
                 <!-- Iframe container with responsive aspect ratio -->
-                <div class="relative w-full overflow-hidden rounded-xl h-[60vh] md:h-[600px] bg-gray-800">
+                <div class="relative w-full overflow-hidden rounded-xl h-[80vh] md:h-[800px] bg-gray-800">
                     <iframe 
                         id="laniakea-iframe"
                         class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
@@ -173,7 +176,7 @@
                 <p class="text-gray-400 mb-4 h-16 overflow-hidden">
                     A web radio player with an ambient visualizer .
                 </p>
-                <div class="relative w-full overflow-hidden rounded-xl h-[60vh] md:h-[600px] bg-gray-800">
+                <div class="relative w-full overflow-hidden rounded-xl h-[80vh] md:h-[800px] bg-gray-800">
                     <iframe 
                         id="ambios-iframe"
                         class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
@@ -199,7 +202,7 @@
                 <p class="text-gray-400 mb-4 h-16 overflow-hidden">
                     A colorful web radio player with a visualizer inspired by the festival of colors, Holi.
                 </p>
-                <div class="relative w-full overflow-hidden rounded-xl h-[60vh] md:h-[600px] bg-gray-800">
+                <div class="relative w-full overflow-hidden rounded-xl h-[80vh] md:h-[800px] bg-gray-800">
                     <iframe 
                         id="holi-iframe"
                         class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
@@ -225,7 +228,7 @@
                 <p class="text-gray-400 mb-4 h-16 overflow-hidden">
                     An interactive journey into the hero's journey, providing guidance and insights.
                 </p>
-                <div class="relative w-full overflow-hidden rounded-xl h-[60vh] md:h-[600px] bg-gray-800">
+                <div class="relative w-full overflow-hidden rounded-xl h-[80vh] md:h-[800px] bg-gray-800">
                     <iframe 
                         id="monomyth-iframe"
                         class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
@@ -245,7 +248,7 @@
 
     <footer class="text-center py-8 text-gray-500">
         <a href="mailto:visnudeva@pm.me" class="hover:underline">
-            <p>2025 Visnudeva</p>
+            <p>&copy; 2025 Visnudeva</p>
         </a>
     </footer>
 
