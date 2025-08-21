@@ -48,7 +48,7 @@
         /* The active state will now be managed by JavaScript on scroll */
         .project-card.active {
             /* Now the entire card is scaled up for a more dramatic effect */
-            transform: scale(1.2); 
+            transform: scale(1.1); 
             box-shadow: 0 25px 50px -12px var(--shadow-color);
         }
 
@@ -84,20 +84,19 @@
             transition: all 0.5s ease-in-out;
         }
 
-        .header.scrolled {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-
         .header.scrolled .header-title-container {
             flex-grow: 1;
-            text-align: left;
+            text-align: center;
         }
         .header.scrolled .header-title {
             font-size: 2rem; /* text-3xl */
             line-height: 2.25rem;
         }
         @media (min-width: 768px) {
+            .header.scrolled .header-title-container {
+                flex-grow: 1;
+                text-align: left;
+            }
             .header.scrolled .header-title {
                 font-size: 2.25rem; /* md:text-4xl */
                 line-height: 2.5rem;
@@ -105,6 +104,9 @@
         }
 
         .header.scrolled .header-subtitle {
+            display: none;
+        }
+        .header.scrolled .header-catchphrase {
             display: none;
         }
     </style>
