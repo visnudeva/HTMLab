@@ -14,6 +14,8 @@
         /* Apply the Inter font and dark theme globally */
         body {
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll on body */
+            transition: background-color 0.5s ease;
         }
 
         /* Hide scrollbars for a cleaner look on the iframes, but allow content to scroll if needed */
@@ -25,43 +27,95 @@
             scrollbar-width: none; /* Firefox */
         }
 
-        /* Base styles for the project card and iframe */
-        .project-card {
-            /* Enable 3D transform acceleration for smooth animations */
-            transform-style: preserve-3d;
-            will-change: transform, box-shadow;
-            transition-property: transform; /* Only transform, as the box-shadow is now dynamic */
-            transition-duration: 300ms;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .project-iframe {
-            will-change: transform, filter;
-            transition-property: transform, filter;
-            transition-duration: 500ms;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transform: scale(0.9);
-            filter: blur(16px);
-            pointer-events: none; /* Disable interaction until hover */
+        /* Styles for the Cover Flow container */
+        .cover-flow-container {
+            /* Flexbox to arrange items horizontally */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 2rem;
+            padding: 2rem 0;
+            perspective: 1000px; /* Perspective for 3D transform effect */
         }
         
-        /* The active state will now be managed by JavaScript on scroll */
+        /* Base styles for the project cards in the cover flow */
+        .project-card {
+            background-color: #0c0a09; /* bg-gray-950 equivalent */
+            border-radius: 1.5rem; /* rounded-3xl equivalent */
+            padding: 1.5rem; /* p-6 equivalent */
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.5s ease-in-out,
+                        box-shadow 0.5s ease-in-out;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            width: 400px; /* Set a fixed width for consistent sizing */
+            max-width: 90vw; /* Ensure it's responsive on smaller screens */
+            position: relative; /* Needed for the link icon to be positioned correctly */
+        }
+
+        /* Default state of the card before a hover or click */
+        /*
+        .project-card {
+            opacity: 0.5;
+            transform: scale(0.85);
+        }
+        */
+
+        /* Hover effect for cards */
+        .project-card:hover {
+            transform: scale(1.05); /* Slightly bigger on hover */
+            opacity: 1; /* Full opacity on hover */
+            box-shadow: 0 50px 100px -20px var(--shadow-color);
+        }
+
+        /* The active, centered card. We are no longer using this `active` class. */
         .project-card.active {
-            /* Now the entire card is scaled up for a more dramatic effect */
-            transform: scale(1.1); 
-            box-shadow: 0 25px 50px -12px var(--shadow-color);
+            z-index: 10;
+            transform: scale(1.1);
+            opacity: 1;
+            box-shadow: 0 50px 100px -20px var(--shadow-color);
         }
 
-        .project-card.active .project-iframe {
-            /* The iframe itself no longer has a zoom transform, as it inherits from the parent */
-            transform: scale(1); 
-            filter: blur(0px);
-            pointer-events: auto; /* Enable interaction when active */
+        /* Styles for the full-screen modal */
+        .project-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent overlay */
+            z-index: 100; /* Above everything else */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; /* Hidden by default */
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
-        /* Remove the text decoration on links inside project cards for a cleaner look */
-        .project-card a {
-            text-decoration: none;
+        .project-modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #0c0a09;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            width: 90%;
+            max-width: 1200px;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .modal-iframe-container {
+            flex-grow: 1;
+            overflow: hidden;
+            border-radius: 1rem;
         }
 
         /* Custom CSS for the color cycling title effect */
@@ -117,8 +171,8 @@
 </head>
 <body class="bg-gray-950 text-gray-200">
 
-    <!-- Dynamic blurred glass header -->
-    <header id="dynamic-header" class="header fixed top-0 left-0 w-full z-50 bg-gray-950/60 backdrop-blur-md px-4 py-8">
+    <!-- Dynamic header without the backdrop blur -->
+    <header id="dynamic-header" class="header fixed top-0 left-0 w-full z-50 bg-gray-950/60 px-4 py-8">
         <div class="container mx-auto flex flex-col md:flex-row items-center justify-between transition-all duration-500">
             <!-- Title and Subtitle -->
             <div class="header-title-container text-center md:text-left transition-all duration-500">
@@ -138,25 +192,19 @@
                 A live, interactive showcase experience of my web development projects.
             </p>
         </div>
-        </div>
     </header>
 
-    <main class="container mx-auto px-4 py-16 mt-64 md:mt-48">
+    <main class="container mx-auto px-4 py-8 mt-48">
         <!-- Projects grid section -->
-        <section class="grid grid-cols-1 gap-48 md:gap-60">
+        <section id="project-grid-section" class="cover-flow-container">
             <!-- Project Card: Laniakea -->
-            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden p-6 relative">
-                <!-- Project title with gradient and link -->
-                <a href="https://github.com/visnudeva/Laniakea" target="_blank">
-                    <h2 class="text-3xl font-bold color-cycle-text mb-2">
-                        Laniakea
-                    </h2>
-                </a>
-                <p class="text-gray-400 mb-4 h-16 overflow-hidden">
-                    A minimalist wallpaper generator inspired by the Laniakea Supercluster.
-                </p>
+            <div class="project-card" data-title="Laniakea" data-description="A minimalist wallpaper generator inspired by the Laniakea Supercluster." data-link="https://visnudeva.github.io/Laniakea/" data-github="https://github.com/visnudeva/Laniakea">
+                <h2 class="text-3xl font-bold color-cycle-text mb-2">
+                    Laniakea
+                </h2>
+                <!-- Subtitle removed -->
                 <!-- Iframe container with responsive aspect ratio -->
-                <div class="relative w-full overflow-hidden rounded-xl h-[80vh] md:h-[800px] bg-gray-800">
+                <div class="relative w-full overflow-hidden rounded-xl h-[25vh] md:h-[30vh] bg-gray-800">
                     <iframe 
                         id="laniakea-iframe"
                         class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
@@ -165,24 +213,15 @@
                         allowfullscreen>
                     </iframe>
                 </div>
-                <!-- Link to live page -->
-                <a href="https://visnudeva.github.io/Laniakea/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
-                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                </a>
             </div>
 
             <!-- Project Card: Ambios -->
-            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden p-6 relative">
-                <!-- Project title with gradient and link -->
-                <a href="https://github.com/visnudeva/Ambios" target="_blank">
-                    <h2 class="text-3xl font-bold color-cycle-text mb-2">
-                        Ambios
-                    </h2>
-                </a>
-                <p class="text-gray-400 mb-4 h-16 overflow-hidden">
-                    A web radio player with an ambient visualizer .
-                </p>
-                <div class="relative w-full overflow-hidden rounded-xl h-[80vh] md:h-[800px] bg-gray-800">
+            <div class="project-card" data-title="Ambios" data-description="A web radio player with an ambient visualizer ." data-link="https://visnudeva.github.io/Ambios/" data-github="https://github.com/visnudeva/Ambios">
+                <h2 class="text-3xl font-bold color-cycle-text mb-2">
+                    Ambios
+                </h2>
+                <!-- Subtitle removed -->
+                <div class="relative w-full overflow-hidden rounded-xl h-[25vh] md:h-[30vh] bg-gray-800">
                     <iframe 
                         id="ambios-iframe"
                         class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
@@ -191,24 +230,15 @@
                         allowfullscreen>
                     </iframe>
                 </div>
-                <!-- Link to live page -->
-                <a href="https://visnudeva.github.io/Ambios/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
-                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                </a>
             </div>
 
             <!-- Project Card: Holi -->
-            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden p-6 relative">
-                <!-- Project title with gradient and link -->
-                <a href="https://github.com/visnudeva/holi" target="_blank">
-                    <h2 class="text-3xl font-bold color-cycle-text mb-2">
-                        Holi
-                    </h2>
-                </a>
-                <p class="text-gray-400 mb-4 h-16 overflow-hidden">
-                    A colorful web radio player with a visualizer inspired by the festival of colors, Holi.
-                </p>
-                <div class="relative w-full overflow-hidden rounded-xl h-[80vh] md:h-[800px] bg-gray-800">
+            <div class="project-card" data-title="Holi" data-description="A colorful web radio player with a visualizer inspired by the festival of colors, Holi." data-link="https://visnudeva.github.io/holi/" data-github="https://github.com/visnudeva/holi">
+                <h2 class="text-3xl font-bold color-cycle-text mb-2">
+                    Holi
+                </h2>
+                <!-- Subtitle removed -->
+                <div class="relative w-full overflow-hidden rounded-xl h-[25vh] md:h-[30vh] bg-gray-800">
                     <iframe 
                         id="holi-iframe"
                         class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
@@ -217,24 +247,15 @@
                         allowfullscreen>
                     </iframe>
                 </div>
-                <!-- Link to live page -->
-                <a href="https://visnudeva.github.io/holi/" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
-                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                </a>
             </div>
 
             <!-- Project Card: Monomyth Oracle -->
-            <div class="project-card bg-gray-900 rounded-3xl overflow-hidden p-6 relative">
-                <!-- Project title with gradient and link -->
-                <a href="https://github.com/visnudeva/Monomyth-Oracle" target="_blank">
-                    <h2 class="text-3xl font-bold color-cycle-text mb-2">
-                        Monomyth Oracle
-                    </h2>
-                </a>
-                <p class="text-gray-400 mb-4 h-16 overflow-hidden">
-                    An interactive journey into the hero's journey, providing guidance and insights.
-                </p>
-                <div class="relative w-full overflow-hidden rounded-xl h-[80vh] md:h-[800px] bg-gray-800">
+            <div class="project-card" data-title="Monomyth Oracle" data-description="An interactive journey into the hero's journey, providing guidance and insights." data-link="https://visnudeva.github.io/Monomyth-Oracle/" data-github="https://github.com/visnudeva/Monomyth-Oracle">
+                <h2 class="text-3xl font-bold color-cycle-text mb-2">
+                    Monomyth Oracle
+                </h2>
+                <!-- Subtitle removed -->
+                <div class="relative w-full overflow-hidden rounded-xl h-[25vh] md:h-[30vh] bg-gray-800">
                     <iframe 
                         id="monomyth-iframe"
                         class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
@@ -243,13 +264,8 @@
                         allowfullscreen>
                     </iframe>
                 </div>
-                <!-- Link to live page -->
-                <a href="https://visnudeva.github.io/Monomyth-Oracle//" target="_blank" class="absolute top-4 right-4 p-2 bg-gray-800 rounded-full shadow-lg transition-transform hover:scale-110 cursor-pointer">
-                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                </a>
             </div>
         </section>
-
     </main>
 
     <footer class="text-center py-8 text-gray-500">
@@ -258,12 +274,43 @@
         </a>
     </footer>
 
+    <!-- Full-Screen Modal HTML -->
+    <div id="project-modal" class="project-modal">
+        <div class="modal-content">
+            <h2 id="modal-title" class="text-3xl md:text-5xl font-bold color-cycle-text mb-2"></h2>
+            <p id="modal-description" class="text-gray-400 mb-4"></p>
+            <div class="modal-iframe-container">
+                <!-- The iframe will be dynamically loaded here -->
+                <iframe id="modal-iframe" class="w-full h-full rounded-xl" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <!-- Links for GitHub and live site -->
+            <div class="flex justify-center md:justify-end mt-4 space-x-4">
+                <a id="modal-github-link" href="#" target="_blank" class="px-6 py-3 bg-gray-800 text-white rounded-full transition-transform hover:scale-105">
+                    GitHub
+                </a>
+                <a id="modal-live-link" href="#" target="_blank" class="px-6 py-3 bg-indigo-600 text-white rounded-full transition-transform hover:scale-105">
+                    View Live
+                </a>
+            </div>
+            <div id="modal-message" class="text-center text-red-400 mt-4 hidden">
+                Loading...
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Get all elements with the class 'project-card'
+        // Get all elements with the class 'project-card' and the modal
         const projectCards = document.querySelectorAll('.project-card');
+        const projectModal = document.getElementById('project-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const modalIframe = document.getElementById('modal-iframe');
+        const modalGithubLink = document.getElementById('modal-github-link');
+        const modalLiveLink = document.getElementById('modal-live-link');
+        const modalMessage = document.getElementById('modal-message');
         
-        // This variable will hold the single random color for the entire page load
         let globalShadowColor = '';
+        let modalTimeout;
 
         /**
          * Generates a random RGBA color string.
@@ -277,39 +324,63 @@
             return `rgba(${r}, ${g}, ${b}, 0.4)`;
         }
 
-        /**
-         * Checks if an element is in the viewport and applies a style.
-         */
-        function checkCardsInView() {
-            projectCards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const iframe = card.querySelector('.project-iframe');
-                
-                // Check if the card is in the viewport with a small buffer
-                const isInView = (
-                    rect.top <= (window.innerHeight - 100) &&
-                    rect.bottom >= 100
-                );
-
-                if (isInView) {
-                    // Add the 'active' class to trigger the CSS animations
-                    card.classList.add('active');
-                    // Apply the globally stored box-shadow color
-                    card.style.boxShadow = `0 25px 50px -12px ${globalShadowColor}`;
-                } else {
-                    // Remove the 'active' class and reset the box-shadow
-                    card.classList.remove('active');
-                    card.style.boxShadow = 'none';
-                }
-            });
-        }
-
         // Set the global color once on page load
         globalShadowColor = getRandomRgbaColor();
 
-        // Add event listeners for scroll and load events
-        window.addEventListener('scroll', checkCardsInView);
-        window.addEventListener('load', checkCardsInView); // Check on page load
+        /**
+         * Sets up the event listeners for the project cards.
+         */
+        function setupCardEffects() {
+            // Add mouseenter and mouseleave listeners to each card for the hover effect
+            projectCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    // Apply the hover effect with the global color
+                    card.style.boxShadow = `0 50px 100px -20px ${globalShadowColor}`;
+
+                    // Clear any previous timeout to prevent multiple modals
+                    clearTimeout(modalTimeout);
+
+                    // Set a new timeout to open the modal after a short delay
+                    modalTimeout = setTimeout(() => {
+                        // Extract data from the clicked card's data attributes
+                        const title = card.dataset.title;
+                        const description = card.dataset.description;
+                        const link = card.dataset.link;
+                        const github = card.dataset.github;
+
+                        // Update the modal content with the card's data
+                        modalTitle.textContent = title;
+                        modalDescription.textContent = description;
+                        modalIframe.src = link;
+                        modalGithubLink.href = github;
+                        modalLiveLink.href = link;
+
+                        // Make the modal visible
+                        projectModal.classList.add('visible');
+                        // Lock the body from scrolling
+                        document.body.style.overflow = 'hidden';
+                    }, 500); // 500ms delay
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.boxShadow = 'none';
+                    // Clear the timeout if the mouse leaves the card before the delay is over
+                    clearTimeout(modalTimeout);
+                });
+            });
+
+            // Add a click listener to the modal background to close it
+            projectModal.addEventListener('click', (event) => {
+                // Check if the click occurred on the modal background itself, not its children
+                if (event.target === projectModal) {
+                    projectModal.classList.remove('visible');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+        
+        // Call the function to set up the effects when the window loads
+        window.addEventListener('load', setupCardEffects);
 
         // --- JavaScript for the dynamic header ---
         const header = document.getElementById('dynamic-header');
