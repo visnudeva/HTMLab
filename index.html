@@ -102,6 +102,24 @@
             overflow: hidden;
             border-radius: 1rem;
         }
+        
+        /* Close button styling */
+        .close-button {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: #d1d5db; /* gray-300 */
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            line-height: 1; /* Aligns the "X" correctly */
+        }
+        
+        .close-button:hover {
+            color: #f3f4f6; /* gray-100 */
+        }
 
         /* Custom CSS for the color cycling title effect */
         .color-cycle-text {
@@ -225,6 +243,8 @@
     <!-- Full-Screen Modal HTML -->
     <div id="project-modal" class="project-modal">
         <div class="modal-content">
+            <!-- Close button -->
+            <button id="close-modal-button" class="close-button">X</button>
             <h2 id="modal-title" class="text-3xl md:text-5xl font-bold color-cycle-text mb-2"></h2>
             <p id="modal-description" class="text-gray-400 mb-4"></p>
             <div class="modal-iframe-container">
@@ -256,6 +276,7 @@
         const modalGithubLink = document.getElementById('modal-github-link');
         const modalLiveLink = document.getElementById('modal-live-link');
         const modalMessage = document.getElementById('modal-message');
+        const closeModalButton = document.getElementById('close-modal-button');
         
         let globalShadowColor = '';
         let modalTimeout;
@@ -308,6 +329,12 @@
                     // Lock the body from scrolling
                     document.body.style.overflow = 'hidden';
                 });
+            });
+
+            // Add a click listener to the close button to close the modal
+            closeModalButton.addEventListener('click', () => {
+                projectModal.classList.remove('visible');
+                document.body.style.overflow = 'auto';
             });
 
             // Add a click listener to the modal background to close it
