@@ -27,46 +27,31 @@
             scrollbar-width: none; /* Firefox */
         }
 
-        /* Styles for the Cover Flow container */
+        /* Styles for the Cover Flow container - now a simple vertical list */
         .cover-flow-container {
-            /* Flexbox to arrange items horizontally */
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            flex-wrap: nowrap;
-            gap: 2rem;
             padding: 2rem 0;
-            perspective: 1000px; /* Perspective for 3D transform effect */
         }
         
-        /* Base styles for the project cards in the cover flow */
+        /* Base styles for the project cards in the list */
         .project-card {
             background-color: #0c0a09; /* bg-gray-950 equivalent */
             border-radius: 1.5rem; /* rounded-3xl equivalent */
             padding: 1.5rem; /* p-6 equivalent */
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                        opacity 0.5s ease-in-out,
                         box-shadow 0.5s ease-in-out;
-            transform-style: preserve-3d;
             cursor: pointer;
-            width: 400px; /* Set a fixed width for consistent sizing */
-            max-width: 90vw; /* Ensure it's responsive on smaller screens */
-            position: relative; /* Needed for the link icon to be positioned correctly */
+            width: 100%; /* Make cards full width for the list layout */
+            max-width: 900px; /* Limit max width for better readability */
+            margin-bottom: 2rem; /* Add vertical spacing between cards */
         }
-
-        /* Default state of the card before a hover or click */
-        /*
-        .project-card {
-            opacity: 0.5;
-            transform: scale(0.85);
-        }
-        */
 
         /* Hover effect for cards */
         .project-card:hover {
-            transform: scale(1.05); /* Slightly bigger on hover */
-            opacity: 1; /* Full opacity on hover */
-            box-shadow: 0 50px 100px -20px var(--shadow-color);
+            transform: scale(1.02); /* Slightly bigger on hover */
+            /* Box shadow is now applied by JS on hover, and permanently on page load */
         }
 
         /* The active, centered card. We are no longer using this `active` class. */
@@ -199,71 +184,34 @@
         <section id="project-grid-section" class="cover-flow-container">
             <!-- Project Card: Laniakea -->
             <div class="project-card" data-title="Laniakea" data-description="A minimalist wallpaper generator inspired by the Laniakea Supercluster." data-link="https://visnudeva.github.io/Laniakea/" data-github="https://github.com/visnudeva/Laniakea">
-                <h2 class="text-3xl font-bold color-cycle-text mb-2">
+                <h2 class="text-3xl font-bold color-cycle-text">
                     Laniakea
                 </h2>
-                <!-- Subtitle removed -->
-                <!-- Iframe container with responsive aspect ratio -->
-                <div class="relative w-full overflow-hidden rounded-xl h-[25vh] md:h-[30vh] bg-gray-800">
-                    <iframe 
-                        id="laniakea-iframe"
-                        class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
-                        src="https://visnudeva.github.io/Laniakea/" 
-                        frameborder="0" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
+                <p class="text-lg text-gray-400">A minimalist wallpaper generator inspired by the Laniakea Supercluster.</p>
             </div>
 
             <!-- Project Card: Ambios -->
             <div class="project-card" data-title="Ambios" data-description="A web radio player with an ambient visualizer ." data-link="https://visnudeva.github.io/Ambios/" data-github="https://github.com/visnudeva/Ambios">
-                <h2 class="text-3xl font-bold color-cycle-text mb-2">
+                <h2 class="text-3xl font-bold color-cycle-text">
                     Ambios
                 </h2>
-                <!-- Subtitle removed -->
-                <div class="relative w-full overflow-hidden rounded-xl h-[25vh] md:h-[30vh] bg-gray-800">
-                    <iframe 
-                        id="ambios-iframe"
-                        class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
-                        src="https://visnudeva.github.io/Ambios/" 
-                        frameborder="0" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
+                <p class="text-lg text-gray-400">A web radio player with an ambient visualizer .</p>
             </div>
 
             <!-- Project Card: Holi -->
             <div class="project-card" data-title="Holi" data-description="A colorful web radio player with a visualizer inspired by the festival of colors, Holi." data-link="https://visnudeva.github.io/holi/" data-github="https://github.com/visnudeva/holi">
-                <h2 class="text-3xl font-bold color-cycle-text mb-2">
+                <h2 class="text-3xl font-bold color-cycle-text">
                     Holi
                 </h2>
-                <!-- Subtitle removed -->
-                <div class="relative w-full overflow-hidden rounded-xl h-[25vh] md:h-[30vh] bg-gray-800">
-                    <iframe 
-                        id="holi-iframe"
-                        class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
-                        src="https://visnudeva.github.io/holi/" 
-                        frameborder="0" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
+                <p class="text-lg text-gray-400">A colorful web radio player with a visualizer inspired by the festival of colors, Holi.</p>
             </div>
 
             <!-- Project Card: Monomyth Oracle -->
             <div class="project-card" data-title="Monomyth Oracle" data-description="An interactive journey into the hero's journey, providing guidance and insights." data-link="https://visnudeva.github.io/Monomyth-Oracle/" data-github="https://github.com/visnudeva/Monomyth-Oracle">
-                <h2 class="text-3xl font-bold color-cycle-text mb-2">
+                <h2 class="text-3xl font-bold color-cycle-text">
                     Monomyth Oracle
                 </h2>
-                <!-- Subtitle removed -->
-                <div class="relative w-full overflow-hidden rounded-xl h-[25vh] md:h-[30vh] bg-gray-800">
-                    <iframe 
-                        id="monomyth-iframe"
-                        class="project-iframe absolute top-0 left-0 w-full h-full rounded-xl"
-                        src="https://visnudeva.github.io/Monomyth-Oracle/" 
-                        frameborder="0" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
+                <p class="text-lg text-gray-400">An interactive journey into the hero's journey, providing guidance and insights.</p>
             </div>
         </section>
     </main>
@@ -331,41 +279,34 @@
          * Sets up the event listeners for the project cards.
          */
         function setupCardEffects() {
-            // Add mouseenter and mouseleave listeners to each card for the hover effect
+            // Apply a consistent, random colored shadow to each card on page load.
             projectCards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    // Apply the hover effect with the global color
+                card.style.boxShadow = `0 20px 40px -10px ${globalShadowColor}`;
+            });
+
+            // Add a click listener to each card for opening the modal
+            projectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // Apply a new shadow on click
                     card.style.boxShadow = `0 50px 100px -20px ${globalShadowColor}`;
 
-                    // Clear any previous timeout to prevent multiple modals
-                    clearTimeout(modalTimeout);
+                    // Extract data from the clicked card's data attributes
+                    const title = card.dataset.title;
+                    const description = card.dataset.description;
+                    const link = card.dataset.link;
+                    const github = card.dataset.github;
 
-                    // Set a new timeout to open the modal after a short delay
-                    modalTimeout = setTimeout(() => {
-                        // Extract data from the clicked card's data attributes
-                        const title = card.dataset.title;
-                        const description = card.dataset.description;
-                        const link = card.dataset.link;
-                        const github = card.dataset.github;
+                    // Update the modal content with the card's data
+                    modalTitle.textContent = title;
+                    modalDescription.textContent = description;
+                    modalIframe.src = link;
+                    modalGithubLink.href = github;
+                    modalLiveLink.href = link;
 
-                        // Update the modal content with the card's data
-                        modalTitle.textContent = title;
-                        modalDescription.textContent = description;
-                        modalIframe.src = link;
-                        modalGithubLink.href = github;
-                        modalLiveLink.href = link;
-
-                        // Make the modal visible
-                        projectModal.classList.add('visible');
-                        // Lock the body from scrolling
-                        document.body.style.overflow = 'hidden';
-                    }, 500); // 500ms delay
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    card.style.boxShadow = 'none';
-                    // Clear the timeout if the mouse leaves the card before the delay is over
-                    clearTimeout(modalTimeout);
+                    // Make the modal visible
+                    projectModal.classList.add('visible');
+                    // Lock the body from scrolling
+                    document.body.style.overflow = 'hidden';
                 });
             });
 
