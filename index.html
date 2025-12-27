@@ -3,356 +3,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTMLab by Visnudeva</title>
-    <!-- Use the Inter font from Google Fonts -->
+    <title>HTMLab | Web Creations</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* Apply the Inter font and dark theme globally */
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --bg-color: #0f1115;
+            --card-bg: #1c1f26;
+            --text-main: #e0e6ed;
+            --text-muted: #94a3b8;
+            --accent-color: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --border-color: #2d3748;
+            --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            --container-width: 1100px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden; /* Prevent horizontal scroll on body */
-            transition: background-color 0.5s ease;
-        }
-
-        /* Hide scrollbars for a cleaner look on the iframes, but allow content to scroll if needed */
-        .project-iframe::-webkit-scrollbar {
-            display: none;
-        }
-        .project-iframe {
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
-        }
-
-        /* Styles for the Cover Flow container - now a simple vertical list */
-        .cover-flow-container {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- Layout --- */
+        .container {
+            width: 90%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* --- Header --- */
+        header {
+            padding: 2.5rem 0; /* Increased padding for breathing room */
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 3rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding: 2rem 0;
-        }
-        
-        /* Base styles for the project cards in the list */
-        .project-card {
-            background-color: #0c0a09; /* bg-gray-950 equivalent */
-            border-radius: 1.5rem; /* rounded-3xl equivalent */
-            padding: 1.5rem; /* p-6 equivalent */
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                        box-shadow 0.5s ease-in-out;
-            cursor: pointer;
-            width: 100%; /* Make cards full width for the list layout */
-            max-width: 900px; /* Limit max width for better readability */
-            margin-bottom: 2rem; /* Add vertical spacing between cards */
         }
 
-        /* Hover effect for cards */
-        .project-card:hover {
-            transform: scale(1.02); /* Slightly bigger on hover */
-            /* Box shadow is now applied by JS on hover, and permanently on page load */
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            white-space: nowrap;
         }
 
-        /* The active, centered card. We are no longer using this `active` class. */
-        .project-card.active {
-            z-index: 10;
-            transform: scale(1.1);
-            opacity: 1;
-            box-shadow: 0 50px 100px -20px var(--shadow-color);
+        .logo a {
+            color: var(--text-main);
         }
 
-        /* Styles for the full-screen modal */
-        .project-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent overlay */
-            z-index: 100; /* Above everything else */
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        /* New Header Text Container */
+        .header-text {
+            text-align: right;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: flex-end;
+        }
+
+        .header-text h2 {
+            font-size: 1.25rem; /* Smaller size to fit header row nicely */
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+        }
+
+        .header-text p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            max-width: 400px;
+        }
+
+        /* Optional: Keeping the Github link subtle inside the text area */
+        .github-link-small {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            margin-top: 0.5rem;
+            display: inline-flex;
             align-items: center;
-            opacity: 0; /* Hidden by default */
-            visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            gap: 0.3rem;
         }
 
-        .project-modal.visible {
-            opacity: 1;
-            visibility: visible;
+        .github-link-small:hover {
+            text-decoration: underline;
         }
 
-        .modal-content {
-            background-color: #0c0a09;
-            border-radius: 1.5rem;
-            padding: 2rem;
-            width: 90%;
-            max-width: 1200px;
-            height: 90%;
+        /* --- Main Content --- */
+        main {
+            flex: 1;
+        }
+
+        /* --- Grid Showcase --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        /* --- Project Card --- */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent-color);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background-color: #000;
             position: relative;
         }
 
-        .modal-iframe-container {
-            flex-grow: 1;
-            overflow: hidden;
-            border-radius: 1rem;
-        }
-        
-        /* Close button styling */
-        .close-button {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: none;
-            border: none;
-            color: #d1d5db; /* gray-300 */
-            font-size: 2rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            line-height: 1; /* Aligns the "X" correctly */
-        }
-        
-        .close-button:hover {
-            color: #f3f4f6; /* gray-100 */
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
-        /* Custom CSS for the color cycling title effect */
-        .color-cycle-text {
-            background: linear-gradient(to right, #ef4444, #8b5cf6, #3b82f6, #8b5cf6, #ef4444, #8b5cf6, #3b82f6, #8b5cf6, #ef4444);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: color-cycle 15s linear infinite;
+        .card:hover .card-image img {
+            opacity: 1;
+            transform: scale(1.05);
         }
 
-        @keyframes color-cycle {
-            to {
-                background-position: 100% center;
-            }
+        .card-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        /* Styles for the dynamic header on scroll */
-        .header {
-            transition: all 0.5s ease-in-out;
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
         }
 
-        .header.scrolled {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
         }
-        .header.scrolled .header-title-container {
-            flex-grow: 1;
+
+        .card-link {
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        /* --- Footer --- */
+        footer {
             text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: auto;
         }
-        .header.scrolled .header-title {
-            font-size: 2rem; /* text-3xl */
-            line-height: 2.25rem;
-        }
-        @media (min-width: 768px) {
-            .header.scrolled .header-title-container {
-                flex-grow: 1;
+
+        /* --- Responsive Tweaks --- */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: flex-start;
                 text-align: left;
             }
-            .header.scrolled .header-title {
-                font-size: 2.25rem; /* md:text-4xl */
-                line-height: 2.5rem;
-            }
-        }
 
-        .header.scrolled .header-subtitle {
-            display: none;
-        }
-        .header.scrolled .header-catchphrase {
-            display: none;
+            .header-text {
+                text-align: left;
+                align-items: flex-start;
+            }
+
+            .header-text h2 {
+                font-size: 1.5rem; /* Make it slightly bigger on mobile since it's stacked */
+            }
         }
     </style>
 </head>
-<body class="bg-gray-950 text-gray-200">
+<body>
 
-    <!-- Dynamic header without the backdrop blur -->
-    <header id="dynamic-header" class="header fixed top-0 left-0 w-full z-50 bg-gray-950/60 px-4 py-8">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between transition-all duration-500">
-            <!-- Title and Subtitle -->
-            <div class="header-title-container text-center md:text-left transition-all duration-500">
-                <a href="https://github.com/visnudeva/HTMLab" target="_blank" class="block mb-2">
-                    <h1 class="header-title text-4xl md:text-5xl font-bold color-cycle-text transition-all duration-500">
-                        HTMLab
-                    </h1>
-                </a>
-                <a href="https://github.com/visnudeva" target="_blank" class="block">
-                    <p class="header-subtitle text-xl md:text-2xl text-gray-400 tracking-widest transition-all duration-500">
-                        by Visnudeva
-                    </p>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <!-- Main Title linking to GitHub Repo -->
+                <a href="https://github.com/visnudeva/HTMLab" target="_blank" rel="noopener noreferrer">
+                    HTML<span>ab</span>
                 </a>
             </div>
-            <!-- Catchphrase -->
-            <p class="header-catchphrase text-lg md:text-xl text-gray-400 mx-auto mt-4 md:mt-0 md:text-right">
-                A live, interactive showcase experience of my web development projects.
-            </p>
+            
+            <!-- Text moved here, right-aligned -->
+            <div class="header-text">
+                <h2>Experimental Creations</h2>
+                <p>A collection of web experiments, interactive tools, and visual projects.</p>
+                <a href="https://github.com/visnudeva/HTMLab" target="_blank" rel="noopener noreferrer" class="github-link-small">
+                    View Source Code &rarr;
+                </a>
+            </div>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8 mt-48">
-        <!-- Projects grid section -->
-        <section id="project-grid-section" class="cover-flow-container">
-            <!-- Project Card: Laniakea -->
-            <div class="project-card" data-title="Laniakea" data-description="A minimalist wallpaper generator inspired by the Laniakea Supercluster." data-link="https://visnudeva.github.io/Laniakea/" data-github="https://github.com/visnudeva/Laniakea">
-                <h2 class="text-3xl font-bold color-cycle-text">
-                    Laniakea
-                </h2>
-                <p class="text-lg text-gray-400">A minimalist wallpaper generator inspired by the Laniakea Supercluster.</p>
-            </div>
+    <main class="container">
+        <!-- Grid starts immediately since text is now in header -->
+        <section class="project-grid">
 
-            <!-- Project Card: Holi -->
-            <div class="project-card" data-title="Holi" data-description="A colorful web radio player with a visualizer inspired by the festival of colors, Holi." data-link="https://visnudeva.github.io/holi/" data-github="https://github.com/visnudeva/holi">
-                <h2 class="text-3xl font-bold color-cycle-text">
-                    Holi
-                </h2>
-                <p class="text-lg text-gray-400">A colorful web radio player with a visualizer inspired by the festival of colors, Holi.</p>
-            </div>
+            <!-- Project 1: Radio (Links to Holi) -->
+            <article class="card">
+                <a href="https://visnudeva.github.io/holi/" target="_blank" rel="noopener noreferrer">
+                    <div class="card-image">
+                        <img src="https://picsum.photos/seed/radio/600/400" alt="Radio Project Screenshot">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Radio</h3>
+                        <p class="card-desc">An audio-visual experiment exploring rhythm and color dynamics.</p>
+                        <span class="card-link">View Project &rarr;</span>
+                    </div>
+                </a>
+            </article>
 
-            <!-- Project Card: Monomyth Oracle -->
-            <div class="project-card" data-title="Monomyth Oracle" data-description="An interactive journey into the hero's journey, providing guidance and insights." data-link="https://visnudeva.github.io/Monomyth-Oracle/" data-github="https://github.com/visnudeva/Monomyth-Oracle">
-                <h2 class="text-3xl font-bold color-cycle-text">
-                    Monomyth Oracle
-                </h2>
-                <p class="text-lg text-gray-400">An interactive journey into the hero's journey, providing guidance and insights.</p>
-            </div>
+            <!-- Project 2: JustWrite -->
+            <article class="card">
+                <a href="https://visnudeva.github.io/JustWrite/" target="_blank" rel="noopener noreferrer">
+                    <div class="card-image">
+                        <img src="https://picsum.photos/seed/justwrite/600/400" alt="JustWrite Project Screenshot">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">JustWrite</h3>
+                        <p class="card-desc">A minimalist, distraction-free environment for pure writing.</p>
+                        <span class="card-link">View Project &rarr;</span>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Project 3: Laniakea -->
+            <article class="card">
+                <a href="https://visnudeva.github.io/Laniakea/" target="_blank" rel="noopener noreferrer">
+                    <div class="card-image">
+                        <img src="https://picsum.photos/seed/laniakea/600/400" alt="Laniakea Project Screenshot">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Laniakea</h3>
+                        <p class="card-desc">A galactic scale visualization of the celestial supercluster.</p>
+                        <span class="card-link">View Project &rarr;</span>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Project 4: Iching -->
+            <article class="card">
+                <a href="https://visnudeva.github.io/BookOfChanges/" target="_blank" rel="noopener noreferrer">
+                    <div class="card-image">
+                        <img src="https://picsum.photos/seed/iching/600/400" alt="I Ching Project Screenshot">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">I Ching</h3>
+                        <p class="card-desc">Digital interpretation of the Book of Changes and ancient wisdom.</p>
+                        <span class="card-link">View Project &rarr;</span>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Project 5: Monomyth -->
+            <article class="card">
+                <a href="https://visnudeva.github.io/monomyth/" target="_blank" rel="noopener noreferrer">
+                    <div class="card-image">
+                        <img src="https://picsum.photos/seed/monomyth/600/400" alt="Monomyth Project Screenshot">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Monomyth</h3>
+                        <p class="card-desc">Exploring the Hero's Journey through interactive storytelling.</p>
+                        <span class="card-link">View Project &rarr;</span>
+                    </div>
+                </a>
+            </article>
+
+            <!-- Project 6: MasterMind -->
+            <article class="card">
+                <a href="https://visnudeva.github.io/MasterMind/" target="_blank" rel="noopener noreferrer">
+                    <div class="card-image">
+                        <img src="https://picsum.photos/seed/mastermind/600/400" alt="MasterMind Project Screenshot">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">MasterMind</h3>
+                        <p class="card-desc">Test your code-breaking logic in this classic puzzle game.</p>
+                        <span class="card-link">View Project &rarr;</span>
+                    </div>
+                </a>
+            </article>
+
         </section>
     </main>
 
-    <footer class="text-center py-8 text-gray-500">
-        <a href="mailto:visnudeva@pm.me" class="hover:underline">
-            <p>&copy; 2025 Visnudeva</p>
-        </a>
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> HTMLab. Built with pure HTML & CSS.</p>
+        </div>
     </footer>
 
-    <!-- Full-Screen Modal HTML -->
-    <div id="project-modal" class="project-modal">
-        <div class="modal-content">
-            <!-- Close button -->
-            <button id="close-modal-button" class="close-button">X</button>
-            <h2 id="modal-title" class="text-3xl md:text-5xl font-bold color-cycle-text mb-2"></h2>
-            <p id="modal-description" class="text-gray-400 mb-4"></p>
-            <div class="modal-iframe-container">
-                <!-- The iframe will be dynamically loaded here -->
-                <iframe id="modal-iframe" class="w-full h-full rounded-xl" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <!-- Links for GitHub and live site -->
-            <div class="flex justify-center md:justify-end mt-4 space-x-4">
-                <a id="modal-github-link" href="#" target="_blank" class="px-6 py-3 bg-gray-800 text-white rounded-full transition-transform hover:scale-105">
-                    GitHub
-                </a>
-                <a id="modal-live-link" href="#" target="_blank" class="px-6 py-3 bg-indigo-600 text-white rounded-full transition-transform hover:scale-105">
-                    View Live
-                </a>
-            </div>
-            <div id="modal-message" class="text-center text-red-400 mt-4 hidden">
-                Loading...
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Get all elements with the class 'project-card' and the modal
-        const projectCards = document.querySelectorAll('.project-card');
-        const projectModal = document.getElementById('project-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalDescription = document.getElementById('modal-description');
-        const modalIframe = document.getElementById('modal-iframe');
-        const modalGithubLink = document.getElementById('modal-github-link');
-        const modalLiveLink = document.getElementById('modal-live-link');
-        const modalMessage = document.getElementById('modal-message');
-        const closeModalButton = document.getElementById('close-modal-button');
-        
-        let globalShadowColor = '';
-        let modalTimeout;
-
-        /**
-         * Generates a random RGBA color string.
-         * The alpha value is fixed at 0.4 to ensure the shadow is semi-transparent.
-         * @returns {string} The formatted RGBA color string.
-         */
-        function getRandomRgbaColor() {
-            const r = Math.floor(Math.random() * 256);
-            const g = Math.floor(Math.random() * 256);
-            const b = Math.floor(Math.random() * 256);
-            return `rgba(${r}, ${g}, ${b}, 0.4)`;
-        }
-
-        // Set the global color once on page load
-        globalShadowColor = getRandomRgbaColor();
-
-        /**
-         * Sets up the event listeners for the project cards.
-         */
-        function setupCardEffects() {
-            // Apply a consistent, random colored shadow to each card on page load.
-            projectCards.forEach(card => {
-                card.style.boxShadow = `0 20px 40px -10px ${globalShadowColor}`;
-            });
-
-            // Add a click listener to each card for opening the modal
-            projectCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    // Apply a new shadow on click
-                    card.style.boxShadow = `0 50px 100px -20px ${globalShadowColor}`;
-
-                    // Extract data from the clicked card's data attributes
-                    const title = card.dataset.title;
-                    const description = card.dataset.description;
-                    const link = card.dataset.link;
-                    const github = card.dataset.github;
-
-                    // Update the modal content with the card's data
-                    modalTitle.textContent = title;
-                    modalDescription.textContent = description;
-                    modalIframe.src = link;
-                    modalGithubLink.href = github;
-                    modalLiveLink.href = link;
-
-                    // Make the modal visible
-                    projectModal.classList.add('visible');
-                    // Lock the body from scrolling
-                    document.body.style.overflow = 'hidden';
-                });
-            });
-
-            // Add a click listener to the close button to close the modal
-            closeModalButton.addEventListener('click', () => {
-                projectModal.classList.remove('visible');
-                document.body.style.overflow = 'auto';
-            });
-
-            // Add a click listener to the modal background to close it
-            projectModal.addEventListener('click', (event) => {
-                // Check if the click occurred on the modal background itself, not its children
-                if (event.target === projectModal) {
-                    projectModal.classList.remove('visible');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        }
-        
-        // Call the function to set up the effects when the window loads
-        window.addEventListener('load', setupCardEffects);
-
-        // --- JavaScript for the dynamic header ---
-        const header = document.getElementById('dynamic-header');
-        const scrollThreshold = 50;
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > scrollThreshold) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
